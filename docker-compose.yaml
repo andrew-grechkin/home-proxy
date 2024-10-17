@@ -1,0 +1,20 @@
+---
+services:
+
+  nginx:  # https://hub.docker.com/_/nginx
+    command: [nginx, -p, /nginx, -c, /nginx/nginx.conf]
+    hostname: nginx
+    image: docker.io/library/nginx:1
+    network_mode: host
+    profiles: [nginx]
+    restart: unless-stopped
+    volumes: [./volume:/nginx:ro]
+
+  haproxy:  # https://hub.docker.com/_/haproxy
+    command: [-f, /haproxy/haproxy.cfg]
+    hostname: haproxy
+    image: docker.io/library/haproxy:lts
+    network_mode: host
+    profiles: [haproxy]
+    restart: unless-stopped
+    volumes: [./volume:/haproxy:ro]
